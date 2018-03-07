@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TrailHopper - Plan Your Adventure</title>
+	
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="img/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="img/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+    <link rel="apple-touch-icon" href="img/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="img/favicon-144.png">
+    <meta name="msapplication-config" content="img/browserconfig.xml">
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="#page-top">Plan Your Adventure</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#page-top">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#page-top">Search Trails</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="/favorites">Your Trails</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Header -->
+    <a name="top" id="top"></a> 
+    <header class="masthead d-flex">
+      <div class="container text-center my-auto">
+        <h1 class="mb-1">TrailHopper</h1>
+        <h3 class="mb-5">
+          <em>A Free Planner to Your Next Hike and Bike Adventure</em>
+        </h3>
+        <form action="/search" method="post">
+            	<div class="row">
+            		<div class="col-lg-4"></div>
+    				<div class="col-lg-4" id="destinations">
+    					<input class="form-control form-control-lg text-center" type="text" name="dest[]" placeholder="Where To?">
+    				</div>
+    			</div>
+    			</br>
+    			<div class="row">
+    				<div class="col-lg-4"></div>
+    				<div class="col-lg-4">
+    				<input type="submit" class="btn btn-primary btn-xl" value="Search Trails">
+    				</div>
+    			</div>
+    			<br>
+    		</form>
+      </div>
+      <div class="overlay"></div>
+    </header>
+
+    <!-- Map -->
+    <a name="m" id="m"></a> 
+    <section id="contact" class="map">
+		<iframe src="http://maps.google.com/maps?q={{#with loc.[0]}}{{#with latlng.[0]}}{{this.lat}}{{/with}}{{/with}},{{#with loc.[0]}}{{#with latlng.[0]}}{{this.lng}}{{/with}}{{/with}}&z=15&output=embed" width="100%" height="100%" frameborder="0" style="border:0"></iframe>
+    </section>
+
+    <!-- Services -->
+    <a name="results" id="results"></a> 
+    <section class="content-section bg-primary text-white text-center" id="services">
+      <div class="container">
+        <div class="content-section-heading">
+          <h2 class="mb-5">{{#if loc}}{{#with loc.[0]}}{{this.city}}{{/with}}{{else}}Search a city above to find new trails!{{/if}}</h2>
+        </div>
+        {{#each loc}}
+        <div class="row">
+          <div class="col-lg-4">
+          	<h4>
+              <strong>{{this.name}}</strong>
+            </h4>
+            <p class="text-faded mb-0">{{{this.directions}}}</p>
+            </h1>
+          </div>
+          {{#each activities}}
+          <div class="col-lg-4">
+            <p>
+              {{#if this.pic}}
+              	<img style="max-height:220px" src="{{this.pic}}" alt="..." class="img-fluid">
+              {{else}}
+              	<img style="max-height:220px" src="img/no-image.jpg" alt="..." class="img-fluid">
+              {{/if}}
+            </p>
+            <p>
+              <form action = "/addFavorite" method = "POST">
+                <input type="hidden" name="postName" value="{{../this.name}}" />
+                <input type="hidden" name="postActType" value="{{this.actType}}" />
+                <input type="hidden" name="postRating" value="{{this.rating}}" />
+                <button type="submit" class="btn btn-warning">Add to Favorites</button>
+              </form>
+            </p>
+            <p>
+              {{#if this.actTypeHike}}
+              	<img src="img/hike.png" alt="..." height="20" width="20">
+              {{/if}}
+              {{#if this.actTypeBike}}
+           		<svg-icon><src href="sprite.svg#si-glyph-bicycle-man" /></svg-icon>
+              	<img src="img/bike.png" alt="..." height="20" width="20">
+              {{/if}}
+            </p>
+            <p>
+              {{#if this.rating}}
+              	<p class="text-faded mb-0">{{this.rating}} out of 5</p>
+              {{else}}
+              	<p class="text-faded mb-0">No Rating Yet</p>
+              {{/if}}
+            </p>
+            <p>
+              {{#if this.actDesc}}
+              	<p class="text-faded mb-0">{{this.actDesc}}</p>
+              {{else}}
+              	<p class="text-faded mb-0">No Description</p>
+              {{/if}}
+            </p>
+          </div>
+          {{/each}}
+        </div>
+        <hr/>
+        {{/each}}
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+      <div class="container">
+        <ul class="list-inline mb-5">
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white mr-3" href="#">
+              <i class="icon-social-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white mr-3" href="#">
+              <i class="icon-social-twitter"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white" href="#">
+              <i class="icon-social-github"></i>
+            </a>
+          </li>
+        </ul>
+        <p class="text-muted small mb-0">Copyright &copy; TrailHopper 2018</p>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/stylish-portfolio.min.js"></script>
+
+  </body>
+
+</html>

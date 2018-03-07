@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TrailHopper - Plan Your Adventure</title>
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="img/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="img/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+    <link rel="apple-touch-icon" href="img/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="img/favicon-144.png">
+    <meta name="msapplication-config" content="img/browserconfig.xml">
+	
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+  </head>
+
+  <body id="page-top">
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="/">Plan Your Adventure</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="/">Search Trails</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#page-top">Your Trails</a>
+        </li>
+      </ul>
+    </nav>
+
+	<section class="content-section bg-warning text-white text-center" id="services">
+		<div class="container">
+			<h1>Favorited Trails</h1>
+				<table class="table table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col">Name</th>
+				      <th scope="col">Activity</th>
+				      <th scope="col">Rating</th>
+				      <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{{#each list}}
+				    <tr>
+				      <th scope="row">{{this.name}}</th>
+				      <td>
+				      	  {{#if this.actTypeHike}}
+				      	  	<img src="img/hike.png" alt="..." height="20" width="20">
+				      	  {{/if}}
+				      	  {{#if this.actTypeBike}}
+				      	    <img src="img/bike.png" alt="..." height="20" width="20">
+				      	  {{/if}}
+				      </td>
+				      <td>
+						  {{#if this.rating}}
+			              	{{this.rating}} / 5.00
+			              {{else}}
+			              	No Rating Yet
+			              {{/if}}
+					  </td>
+				      <td>
+					      <form action = "/removeFavorite" method = "POST">
+			                <input type="hidden" name="postId" value="{{this.id}}" />
+			                <button type="submit" class="btn btn-error">Remove</button>
+			              </form>
+		              </td>
+				    </tr>
+				    {{/each}}
+				  </tbody>
+				</table>
+				<a class="btn btn-large btn-info" href="/">Back to Home</a>
+		</div>
+	</section>
+	
+    <footer class="footer text-center">
+      <div class="container">
+        <ul class="list-inline mb-5">
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white mr-3" href="#">
+              <i class="icon-social-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white mr-3" href="#">
+              <i class="icon-social-twitter"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white" href="#">
+              <i class="icon-social-github"></i>
+            </a>
+          </li>
+        </ul>
+        <p class="text-muted small mb-0">Copyright &copy; TrailHopper 2018</p>
+      </div>
+    </footer>
+
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+	
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/stylish-portfolio.min.js"></script>
+
+  </body>
+
+</html>
